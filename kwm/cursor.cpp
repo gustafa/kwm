@@ -415,3 +415,15 @@ void FocusWindowBelowCursor()
         }
     }
 }
+
+void LeftClickToFocus() {
+    uint32_t WindowID = AXLibGetWindowBelowCursor();
+
+    if (WindowID == 0) {
+        CGEventRef click1_down = CGEventCreateMouseEvent(
+            NULL, kCGEventLeftMouseDown,
+            GetCursorPos(),
+            kCGMouseButtonLeft
+        );
+    }
+}

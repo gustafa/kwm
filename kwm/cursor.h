@@ -10,5 +10,6 @@ void MoveCursorToCenterOfWindow(ax_window *Window);
 void MoveCursorToCenterOfTreeNode(tree_node *Node);
 void MoveCursorToCenterOfLinkNode(link_node *Link);
 void MoveCursorToCenterOfFocusedWindow();
+void LeftClickToFocus();
 
 #endif

@@ -210,6 +210,7 @@ void FocusDisplay(ax_display *Display)
                     int Y  = Node->Container.Y + (Node->Container.Height / 2);
                     CGWarpMouseCursorPosition(CGPointMake(X, Y));
                 }
+                DEBUG("No node");
             }
             else if(SpaceInfo->Settings.Mode == SpaceModeMonocle)
             {

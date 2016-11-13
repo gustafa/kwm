@@ -8,6 +8,7 @@
 #include "daemon.h"
 #include "display.h"
 #include "space.h"
+#include "vspace.h"
 #include "window.h"
 #include "container.h"
 #include "node.h"
@@ -1346,6 +1347,29 @@ KwmParseSpaceOption(tokenizer *Tokenizer)
                 ReportInvalidCommand("Unknown selector '" + std::string(Token.Text, Token.TextLength) + "'");
             }
         }
+        else if(TokenEquals(Selector, "add"))
+        {
+            token Token = GetToken(Tokenizer);
+            AddVspace(std::string(Token.Text, Token.TextLength));
+        }
+        else if(TokenEquals(Selector, "rm"))
+        {
+            token Token = GetToken(Tokenizer);
+            DeleteVspace(std::string(Token.Text, Token.TextLength));
+        }
+        else if (TokenEquals(Selector, "mv"))
+        {
+            token Token = GetToken(Tokenizer);
+            MoveVspaceToDisplay(AXLibMainDisplay(), std::string(Token.Text, Token.TextLength));
+        }
+        else if (TokenEquals(Selector, "mvw"))
+        {
+            token Token = GetToken(Tokenizer);
+            ax_window *Window = FocusedApplication ? FocusedApplication->Focus : NULL;
+            if (Window) {
+                MoveWindowToVspace(AXLibMainDisplay(), Window, std::string(Token.Text, Token.TextLength));
+            }
+        }
         else if(TokenEquals(Selector, "p"))
         {
             token Token = GetToken(Tokenizer);
@@ -1407,6 +1431,39 @@ KwmParseSpaceOption(tokenizer *Tokenizer)
         ReportInvalidCommand("Expected token '-' after 'space'");
     }
 }
+
+// internal void
+// KwmParseVSpaceOption(tokenizer *Tokenizer)
+// {
+//     DEBUG("Vspaceoption!");
+//     if(RequireToken(Tokenizer, Token_Dash))
+//     {
+//         token Selector = GetToken(Tokenizer);
+//         if(TokenEquals(Selector, "add"))
+//         {
+//             token Token = GetToken(Tokenizer);
+//             AddVspace(std::string(Token.Text, Token.TextLength));
+//         }
+//         else if(TokenEquals(Selector, "rm"))
+//         {
+//             token Token = GetToken(Tokenizer);
+//             DeleteVspace(std::string(Token.Text, Token.TextLength));
+//         }
+//         else if (TokenEquals(Selector, "mv"))
+//         {
+//             token Token = GetToken(Tokenizer);
+//             MoveVspaceToDisplay(AXLibMainDisplay(), std::string(Token.Text, Token.TextLength));
+//         }
+//         else
+//         {
+//             ReportInvalidCommand("Unknown selector '" + std::string(Selector.Text, Selector.TextLength) + "'");
+//         }
+//     }
+//     else
+//     {
+//         ReportInvalidCommand("Expected token '-' after 'space'");
+//     }
+// }
 
 internal void
 KwmParseScratchpadOption(tokenizer *Tokenizer)
