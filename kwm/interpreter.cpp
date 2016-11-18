@@ -21,7 +21,8 @@ void KwmInterpretCommand(std::string Message, int ClientSockFD)
             (Tokens[0] == "display") ||
             (Tokens[0] == "space") ||
             (Tokens[0] == "scratchpad") ||
-            (Tokens[0] == "query"))
+            (Tokens[0] == "query") ||
+            (Tokens[0] == "vspace"))
         KwmParseKwmc(&Tokenizer, ClientSockFD);
     else if(Tokens[0] == "rule")
         KwmAddRule(CreateStringFromTokens(Tokens, 1));
